@@ -6,6 +6,7 @@ export default function fetchCountries(countryName) {
       throw new Error(response.status);
     } else {
       return response.json();
+
     }
   });
 }

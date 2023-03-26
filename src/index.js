@@ -27,6 +27,7 @@ function onSearchCountries() {
         checkCountriesQuantity(countries);
       })
       .catch(Error => {
+        clearMarkup();
         Notify.failure('Oops, there is no country with that name');
         return Error;
       });
@@ -37,17 +38,18 @@ function onSearchCountries() {
 
 function checkCountriesQuantity(countries) {
   if (countries.length > 10) {
+    clearMarkup();
     Notify.info('Too many matches found. Please enter a more specific name.');
   } else if (countries.length > 1 && countries.length < 10) {
+    clearMarkup();
     makeSeveralCountriesMarkup(countries);
-  } else if (refs.countryInfo.childNodes.length === 0) {
+  } else {
+    clearMarkup();
     makeOneCountryMarkup(countries);
   }
 }
 
 function makeSeveralCountriesMarkup(countries) {
-  clearMarkup();
-
   countries.map(country => {
     const markup = `<li class="country-list__item"><img src=${country.flags.svg} alt="flag" width=50px><p>${country.name.official}</p></li>`;
     refs.countryList.insertAdjacentHTML('beforeend', markup);
@@ -55,8 +57,6 @@ function makeSeveralCountriesMarkup(countries) {
 }
 
 function makeOneCountryMarkup(countries) {
-  refs.countryList.innerHTML = '';
-
   countries.map(country => {
     const languages = Object.values(country.languages).join(', ');
     const markup = `<div class="country-info__header">
@@ -73,6 +73,11 @@ function makeOneCountryMarkup(countries) {
 }
 
 function clearMarkup() {
-  refs.countryList.innerHTML = '';
-  refs.countryInfo.innerHTML = '';
+  if (
+    refs.countryInfo.childNodes.length !== 0 ||
+    refs.countryList.childNodes.length !== 0
+  ) {
+    refs.countryList.innerHTML = '';
+    refs.countryInfo.innerHTML = '';
+  }
 }

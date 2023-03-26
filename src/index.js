@@ -22,9 +22,14 @@ function onSearchCountries() {
   countryName = refs.inputArea.value.trim();
 
   if (countryName !== '') {
-    fetchCountries(countryName).then(countries => {
-      checkCountriesQuantity(countries);
-    });
+    fetchCountries(countryName)
+      .then(countries => {
+        checkCountriesQuantity(countries);
+      })
+      .catch(Error => {
+        Notify.failure('Oops, there is no country with that name');
+        return Error;
+      });
   } else {
     clearMarkup();
   }

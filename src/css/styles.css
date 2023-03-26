@@ -47,3 +47,8 @@ ul {
 .country-info__header > h1 {
   margin-left: 20px;
 }
+
+.country-info__item > span {
+  margin-right: 15px;
+  font-weight: 700;
+}

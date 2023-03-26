@@ -51,7 +51,7 @@ function checkCountriesQuantity(countries) {
 
 function makeSeveralCountriesMarkup(countries) {
   countries.map(country => {
-    const markup = `<li class="country-list__item"><img src=${country.flags.svg} alt="flag" width=50px><p>${country.name.official}</p></li>`;
+    const markup = `<li class="country-list__item"><img src=${country.flags.svg} alt=${country.flags.alt} width=50px><p>${country.name.official}</p></li>`;
     refs.countryList.insertAdjacentHTML('beforeend', markup);
   });
 }
@@ -60,7 +60,7 @@ function makeOneCountryMarkup(countries) {
   countries.map(country => {
     const languages = Object.values(country.languages).join(', ');
     const markup = `<div class="country-info__header">
-      <img src=${country.flags.svg} alt="flag" width="100px">
+      <img src=${country.flags.svg} alt=${country.flags.alt} width="100px">
       <h1>${country.name.official}</h1>
     </div>
     <ul class="country-info__list">
